@@ -1,0 +1,22 @@
+{
+  "name": "japanese-events-for-child",
+  "version": "1.0.0",
+  "description": "Guess japanese children's event date.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "japanese-events-for-child": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siroemk/japanese-events-for-child.git"
+  },
+  "author": "siroemk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/siroemk/japanese-events-for-child/issues"
+  },
+  "homepage": "https://github.com/siroemk/japanese-events-for-child#readme"
+}
