@@ -3,12 +3,22 @@
 class Main {
   async run() {
     this.displayFirstMessage()
-    const birth = await this.getBirthNumber()
-    const birthYear = parseInt(birth.substr(0, 4))
-    const birthMonth = parseInt(birth.substr(4, 2))
-    const birthDay = parseInt(birth.substr(6, 2))
+    const birthNumer = await this.getBirthNumber()
+    const birthYear = parseInt(birthNumer.toString().substr(0, 4))
+    const birthMonth = parseInt(birthNumer.toString().substr(4, 2))
+    const birthDay = parseInt(birthNumer.toString().substr(6, 2))
+    
+    this.eventdate = new EventDate(birthYear, birthMonth, birthDay)
+    if (String(birthNumer).length != 8) {
+      console.log('誕生日を8桁で入力してください')
+      return
+    } else if (birthMonth != this.eventdate.getBirth().getMonth() + 1) {
+      console.log('誕生日を正しく入力してください')
+      return
+    }
     const gender = await this.getGender()
-    let eventsDate = this.getEventsDate(birthYear, birthMonth, birthDay, gender)
+    const eventsDate = this.getEventsDate(this.eventdate, gender)
+
     this.displayLastMessage()
     Object.keys(this.sort(eventsDate)).forEach(function(key) {
       console.log(key.padEnd(12, '　'), this[key].toLocaleDateString({ timeZone: 'Asia/Tokyo' }))
@@ -16,51 +26,48 @@ class Main {
   }
 
   async getBirthNumber() {
-    const { Input } = require('enquirer')
-    const input = new Input({
-      name: 'birthDay',
-      message: '誕生日を入力してください:',
-      initial: '20220101'
+    const { NumberPrompt } = require('enquirer')
+    const input = new NumberPrompt({
+      message: '誕生日を入力してください 例) 20220101:',
     })
-    const birth = await input.run()
-    return birth
+    const birthNumer = await input.run()
+    return birthNumer
   }
 
   async getGender() {
     const { Select } = require ('enquirer')
     const select = new Select({
-        message: 'お子さんの性別を選んでください',
+        message: '性別を選んでください',
         choices: ['男の子', '女の子', '回答しない']
       })
     const gender = await select.run()
     return gender
   }
 
-  getEventsDate(birthYear, birthMonth, birthDay, gender) {
-    this.eventdate = new EventDate(birthYear, birthMonth, birthDay)
+  getEventsDate(eventdate, gender) {
     let eventsDate = {}
-    eventsDate['お誕生日'] = this.eventdate.getBirth()
-    eventsDate['お食い初め'] = this.eventdate.getOkuizome()
-    eventsDate['ハーフバースデー'] = this.eventdate.getHalfBirth()
+    eventsDate['お誕生日'] = eventdate.getBirth()
+    eventsDate['お食い初め'] = eventdate.getOkuizome()
+    eventsDate['ハーフバースデー'] = eventdate.getHalfBirth()
+    eventsDate['小学校入学'] = eventdate.getElementarySchool()
     if (gender == '男の子') {
-      eventsDate['お宮参り'] = this.eventdate.getOmiyamairiForBoy()
-      eventsDate['初節句'] = this.eventdate.getSekku()
-      eventsDate['七五三（５才）'] = this.eventdate.getSichigosanForFive()
+      eventsDate['お宮参り'] = eventdate.getOmiyamairiForBoy()
+      eventsDate['初節句'] = eventdate.getSekku()
+      eventsDate['七五三（５才）'] = eventdate.getSichigosanForFive()
       } else if (gender == '女の子') {
-      eventsDate['お宮参り'] = this.eventdate.getOmiyamairiForGirl()
-      eventsDate['桃の節句'] = this.eventdate.getMomonosekku()
-      eventsDate['七五三（３才）'] = this.eventdate.getSichigosanForThree()
-      eventsDate['七五三（７才）'] = this.eventdate.getSichigosanForSeven()
+      eventsDate['お宮参り'] = eventdate.getOmiyamairiForGirl()
+      eventsDate['桃の節句'] = eventdate.getMomonosekku()
+      eventsDate['七五三（３才）'] = eventdate.getSichigosanForThree()
+      eventsDate['七五三（７才）'] = eventdate.getSichigosanForSeven()
     } else if (gender == '回答しない') {
-      eventsDate['お宮参り（男の子）'] = this.eventdate.getOmiyamairiForBoy()
-      eventsDate['お宮参り（女の子）'] = this.eventdate.getOmiyamairiForGirl()
-      eventsDate['桃の節句（女の子）'] = this.eventdate.getMomonosekku()
-      eventsDate['初節句（男の子）'] = this.eventdate.getSekku()
-      eventsDate['七五三（３才 女の子）'] = this.eventdate.getSichigosanForThree()
-      eventsDate['七五三（５才 男の子）'] = this.eventdate.getSichigosanForFive()
-      eventsDate['七五三（７才 女の子）'] = this.eventdate.getSichigosanForSeven()
+      eventsDate['お宮参り（男の子）'] = eventdate.getOmiyamairiForBoy()
+      eventsDate['お宮参り（女の子）'] = eventdate.getOmiyamairiForGirl()
+      eventsDate['桃の節句（女の子）'] = eventdate.getMomonosekku()
+      eventsDate['初節句（男の子）'] = eventdate.getSekku()
+      eventsDate['七五三（３才 女の子）'] = eventdate.getSichigosanForThree()
+      eventsDate['七五三（５才 男の子）'] = eventdate.getSichigosanForFive()
+      eventsDate['七五三（７才 女の子）'] = eventdate.getSichigosanForSeven()
     }
-    eventsDate['小学校入学'] = this.eventdate.getElementarySchool()
     return eventsDate
   }
 
