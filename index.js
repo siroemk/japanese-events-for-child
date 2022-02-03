@@ -10,10 +10,30 @@ class Main {
     const gender = await this.getGender()
     let eventsDate = this.getEventsDate(birthYear, birthMonth, birthDay, gender)
     this.displayLastMessage()
-
-    Object.keys(eventsDate).forEach(function(key) {
+    Object.keys(this.sort(eventsDate)).forEach(function(key) {
       console.log(key.padEnd(12, '　'), this[key].toLocaleDateString({ timeZone: 'Asia/Tokyo' }))
     }, eventsDate)
+  }
+
+  async getBirthNumber() {
+    const { Input } = require('enquirer')
+    const input = new Input({
+      name: 'birthDay',
+      message: '誕生日を入力してください:',
+      initial: '20220101'
+    })
+    const birth = await input.run()
+    return birth
+  }
+
+  async getGender() {
+    const { Select } = require ('enquirer')
+    const select = new Select({
+        message: 'お子さんの性別を選んでください',
+        choices: ['男の子', '女の子', '回答しない']
+      })
+    const gender = await select.run()
+    return gender
   }
 
   getEventsDate(birthYear, birthMonth, birthDay, gender) {
@@ -61,25 +81,11 @@ class Main {
     '--------------------------------------------------------\n' )
   }
 
-  async getBirthNumber() {
-    const { Input } = require('enquirer')
-    const input = new Input({
-      name: 'birthDay',
-      message: '誕生日を入力してください:',
-      initial: '20220101'
-    })
-    const birth = await input.run()
-    return birth
-  }
-
-  async getGender() {
-    const { Select } = require ('enquirer')
-    const select = new Select({
-        message: 'お子さんの性別を選んでください',
-        choices: ['男の子', '女の子', '回答しない']
+  sort(eventsDate) {
+    Object.entries(eventsDate).sort(function(a, b){
+      return new Date(a) - new Date(b)
       })
-    const gender = await select.run()
-    return gender
+    return Object.fromEntries(Object.entries(eventsDate))
   }
 }
 
