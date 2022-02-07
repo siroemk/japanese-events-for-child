@@ -28,9 +28,14 @@ class Main {
     const gender = await select.run()
     let eventDates = this.getEventDates(birthYear, birthMonth, birthDay, gender)
     this.displayLastMessage()
-    Object.keys(this.sort(eventDates)).forEach(function(key) {
-      console.log(key.padEnd(12, '　'), this[key].toLocaleDateString({ timeZone: 'Asia/Tokyo' }))
-    }, eventDates)
+    eventDates = this.sort(eventDates)
+    Object.keys(eventDates).forEach(function(key) {
+      const localDate = eventDates[key].toLocaleDateString({ timeZone: 'Asia/Tokyo' })
+      const year = new Date(localDate).getFullYear()
+      const month = ('00' + (new Date(localDate).getMonth() + 1)).slice(-2)
+      const day = ('00' + new Date(localDate).getDate()).slice(-2)
+      console.log(key.padEnd(12, '　') + year + '/' + month + '/' + day)
+    })
   }
 
   getEventDates(birthYear, birthMonth, birthDay, gender) {
