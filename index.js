@@ -22,18 +22,19 @@ class Main {
     }
     
     const select = new Select({
-      message: '性別を選んでください',
+      message: '性別を選んでください:',
       choices: ['男の子', '女の子', '回答しない']
     })
     const gender = await select.run()
-    let eventDates = this.getEventDates(birthYear, birthMonth, birthDay, gender)
+
     this.displayLastMessage()
+    let eventDates = this.getEventDates(birthYear, birthMonth, birthDay, gender)
     eventDates = this.sort(eventDates)
     Object.keys(eventDates).forEach(function(key) {
-      const localDate = eventDates[key].toLocaleDateString({ timeZone: 'Asia/Tokyo' })
-      const year = new Date(localDate).getFullYear()
-      const month = ('00' + (new Date(localDate).getMonth() + 1)).slice(-2)
-      const day = ('00' + new Date(localDate).getDate()).slice(-2)
+      const eventDate = eventDates[key]
+      const year = eventDate.getFullYear()
+      const month = ('00' + (eventDate.getMonth() + 1)).slice(-2)
+      const day = ('00' + eventDate.getDate()).slice(-2)
       console.log(key.padEnd(14, '　') + year + '/' + month + '/' + day)
     })
   }
@@ -49,7 +50,7 @@ class Main {
       eventDates['お宮参り'] = this.eventdate.getOmiyamairiForBoy()
       eventDates['初節句'] = this.eventdate.getSekku()
       eventDates['七五三（５才）'] = this.eventdate.getSichigosanForFive()
-      } else if (gender == '女の子') {
+    } else if (gender == '女の子') {
       eventDates['お宮参り'] = this.eventdate.getOmiyamairiForGirl()
       eventDates['桃の節句'] = this.eventdate.getMomonosekku()
       eventDates['七五三（３才）'] = this.eventdate.getSichigosanForThree()
