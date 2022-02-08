@@ -12,6 +12,6 @@ $ npm i -g japanese-events-for-child
 ## Usage
 ```
 1. Execute the command.
-1. Answer some questions.
-1. Wait for the result.
+2. Answer some questions.
+3. Wait for the result.
 ```
