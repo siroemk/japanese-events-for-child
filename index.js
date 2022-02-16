@@ -13,10 +13,10 @@ class Main {
     const birthYear = Number(birthNumer.toString().substr(0, 4))
     const birthMonth = Number(birthNumer.toString().substr(4, 2))
     const birthDay = Number(birthNumer.toString().substr(6, 2))
-    if (String(birthNumer).length != 8) {
+    if (String(birthNumer).length !== 8) {
       console.log('誕生日が不明です...8桁で入力してください')
       return
-    } else if (birthMonth != new Date(birthYear, birthMonth, birthDay).getMonth()) {
+    } else if (birthMonth !== new Date(birthYear, birthMonth, birthDay).getMonth()) {
       console.log('入力された誕生日は存在しませんでした...')
       return
     }
@@ -40,29 +40,29 @@ class Main {
   }
 
   getEventDates(birthYear, birthMonth, birthDay, gender) {
-    this.eventdate = new EventDate(birthYear, birthMonth, birthDay)
-    let eventDates = {}
-    eventDates['お誕生日'] = this.eventdate.getBirth()
-    eventDates['お食い初め'] = this.eventdate.getOkuizome()
-    eventDates['ハーフバースデー'] = this.eventdate.getHalfBirth()
-    eventDates['小学校入学'] = this.eventdate.getElementarySchool()
-    if (gender == '男の子') {
-      eventDates['お宮参り'] = this.eventdate.getOmiyamairiForBoy()
-      eventDates['初節句'] = this.eventdate.getSekku()
-      eventDates['七五三（５才）'] = this.eventdate.getSichigosanForFive()
-    } else if (gender == '女の子') {
-      eventDates['お宮参り'] = this.eventdate.getOmiyamairiForGirl()
-      eventDates['桃の節句'] = this.eventdate.getMomonosekku()
-      eventDates['七五三（３才）'] = this.eventdate.getSichigosanForThree()
-      eventDates['七五三（７才）'] = this.eventdate.getSichigosanForSeven()
-    } else if (gender == '回答しない') {
-      eventDates['お宮参り（男の子）'] = this.eventdate.getOmiyamairiForBoy()
-      eventDates['お宮参り（女の子）'] = this.eventdate.getOmiyamairiForGirl()
-      eventDates['桃の節句（女の子）'] = this.eventdate.getMomonosekku()
-      eventDates['初節句（男の子）'] = this.eventdate.getSekku()
-      eventDates['七五三（３才女の子）'] = this.eventdate.getSichigosanForThree()
-      eventDates['七五三（５才男の子）'] = this.eventdate.getSichigosanForFive()
-      eventDates['七五三（７才女の子）'] = this.eventdate.getSichigosanForSeven()
+    const eventdate = new EventDate(birthYear, birthMonth, birthDay)
+    const eventDates = {}
+    eventDates['お誕生日'] = eventdate.getBirth()
+    eventDates['お食い初め'] = eventdate.getOkuizome()
+    eventDates['ハーフバースデー'] = eventdate.getHalfBirth()
+    eventDates['小学校入学'] = eventdate.getElementarySchool()
+    if (gender === '男の子') {
+      eventDates['お宮参り'] = eventdate.getOmiyamairiForBoy()
+      eventDates['初節句'] = eventdate.getSekku()
+      eventDates['七五三（５才）'] = eventdate.getSichigosanForFive()
+    } else if (gender === '女の子') {
+      eventDates['お宮参り'] = eventdate.getOmiyamairiForGirl()
+      eventDates['桃の節句'] = eventdate.getMomonosekku()
+      eventDates['七五三（３才）'] = eventdate.getSichigosanForThree()
+      eventDates['七五三（７才）'] = eventdate.getSichigosanForSeven()
+    } else if (gender === '回答しない') {
+      eventDates['お宮参り（男の子）'] = eventdate.getOmiyamairiForBoy()
+      eventDates['お宮参り（女の子）'] = eventdate.getOmiyamairiForGirl()
+      eventDates['桃の節句（女の子）'] = eventdate.getMomonosekku()
+      eventDates['初節句（男の子）'] = eventdate.getSekku()
+      eventDates['七五三（３才女の子）'] = eventdate.getSichigosanForThree()
+      eventDates['七五三（５才男の子）'] = eventdate.getSichigosanForFive()
+      eventDates['七五三（７才女の子）'] = eventdate.getSichigosanForSeven()
     }
     return eventDates
   }
