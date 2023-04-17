@@ -11,7 +11,7 @@ class Main {
     })
     const birthNumer = await numberprompt.run()
     const birthYear = Number(birthNumer.toString().substr(0, 4))
-    const birthMonth = Number(birthNumer.toString().substr(4, 2))
+    const birthMonth = Number(birthNumer.toString().substr(4, 2)) - 1
     const birthDay = Number(birthNumer.toString().substr(6, 2))
     if (String(birthNumer).length !== 8) {
       console.log('誕生日が不明です...8桁で入力してください')
