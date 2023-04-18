@@ -168,4 +168,9 @@ class EventDate {
   }
 } 
 
-new Main().run()
+module.exports = { Main };
+
+if (require.main === module) {
+  const main = new Main();
+  main.run();
+}
