@@ -11,7 +11,7 @@ class Main {
     })
     const birthNumer = await numberprompt.run()
     const birthYear = Number(birthNumer.toString().substr(0, 4))
-    const birthMonth = Number(birthNumer.toString().substr(4, 2))
+    const birthMonth = Number(birthNumer.toString().substr(4, 2)) - 1
     const birthDay = Number(birthNumer.toString().substr(6, 2))
     if (String(birthNumer).length !== 8) {
       console.log('誕生日が不明です...8桁で入力してください')
@@ -100,23 +100,23 @@ class EventDate {
   }
 
   getBirth() {
-    return new Date(this.birthYear, this.birthMonth - 1, this.birthDay)
+    return new Date(this.birthYear, this.birthMonth, this.birthDay)
   }
 
   getHalfBirth() {
-    return new Date(this.birthYear, this.birthMonth + 5, this.birthDay)
+    return new Date(this.birthYear, this.birthMonth + 6, this.birthDay)
   }
 
   getOkuizome() {
-    return new Date(this.birthYear, this.birthMonth - 1, this.birthDay + 99)
+    return new Date(this.birthYear, this.birthMonth, this.birthDay + 99)
   }
 
   getOmiyamairiForBoy() {
-    return new Date(this.birthYear, this.birthMonth - 1, this.birthDay + 30)  
+    return new Date(this.birthYear, this.birthMonth, this.birthDay + 30)
   }
 
   getOmiyamairiForGirl() {
-    return new Date(this.birthYear, this.birthMonth - 1, this.birthDay + 31)  
+    return new Date(this.birthYear, this.birthMonth, this.birthDay + 31)
   }
 
   getMomonosekku() {
