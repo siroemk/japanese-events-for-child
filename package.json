@@ -1,6 +1,6 @@
 {
   "name": "japanese-events-for-child",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Guess japanese children's event date.",
   "main": "index.js",
   "scripts": {
