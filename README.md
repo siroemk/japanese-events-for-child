@@ -15,3 +15,8 @@ $ npm i -g japanese-events-for-child
 2. Answer some questions.
 3. Wait for the result.
 ```
+
+## Test
+```
+$ npm test
+```
